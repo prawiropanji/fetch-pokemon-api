@@ -1,5 +1,5 @@
 p {
-    margin-top: 1rem;
+ 
     margin-bottom: 0;
 }
 
@@ -7,6 +7,14 @@ p {
     margin: 0 0.10rem;
 }
 
+img{
+    object-fit: contain;
+    
+}
+
+.card {
+    width: 100%;
+}
 
 
 

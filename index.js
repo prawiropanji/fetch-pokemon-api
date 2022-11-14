@@ -46,8 +46,8 @@ $.ajax({
     let temp = "";
     res.results.forEach((element,index) => {
         temp += `<tr>
-        <td>${++index}</td>
-        <td>${element.name}</td>
+        <th>${++index}</th>
+        <td class="text-capitalize">${element.name}</td>
         <td><button class="btn btn-primary" onclick="showPokemonDetail('${element.url}')" data-bs-toggle="modal" data-bs-target="#pokemon_detail">Detail</button></td>
     </tr>`
 
@@ -64,12 +64,17 @@ function showPokemonDetail(detailPokeUrl){
     $.ajax({
         url: detailPokeUrl
     }).done(res => {
-        console.log(res.sprites.other.dream_world.front_default )
+        console.log(res.stats)
+
+  
 
         
 
-        $(".modal-body").html(`<h2>${res.name}</h2>
-        <img style="width: 200px;height:200px" class="shadow  rounded-circle" src="${res.sprites.other.dream_world.front_default}" alt="">
+        $(".modal-body").html(`<h2 class="text-capitalize">${res.name}</h2>    
+        <div style="width: 18.75rem;height: 18.75rem;overflow: hidden;" class="frame rounded-circle shadow d-flex justify-content-center align-items-centerd">
+            <img style="width: 70%;height:auto;" src="${res.sprites.other.dream_world.front_default}" alt="">
+        </div>
+       
         <div>
           <p class="fw-bold">Type</p>
           <div class="detail-type">
@@ -78,8 +83,21 @@ function showPokemonDetail(detailPokeUrl){
           <p class="fw-bold">Abilities</p>
           <ul class="list-inline">
                
-            </ul>
-        </div>`)
+           </ul>
+
+         
+       </div>
+
+       <p class="fw-bold">Stats</p>
+       <div class="card">
+       <div class="card-body">
+           <canvas id="statsChart"></canvas>
+       </div>
+
+        </div>
+
+   
+        `)
 
 
         let typeBadges = "";
@@ -97,14 +115,82 @@ function showPokemonDetail(detailPokeUrl){
      
         $(".detail-type").html(typeBadges)
 
-       $(".list-inline").html(abilityList);
+        $(".list-inline").html(abilityList);
 
+        //Setup and config chart
+        const statsLabel = [];
+        const statsData = [];
+        
+        res.stats.forEach(element =>{
+            statsData.push(element.base_stat);
+            statsLabel.push(element.stat.name)
+        })
+
+        const data = {
+            labels: statsLabel,
+            datasets: [{
+              label: 'Stat',
+              data: statsData,
+              fill: true,
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+        
+            }]
+          };
+        
+          const config = {
+            type: 'radar',
+            data: data,
+            options: {
+              elements: {
+                line: {
+                  borderWidth: 3
+                }
+              },
+              plugins:{
+                // title:{
+                //     display:true,
+                //     text: 'Base Stats',
+                //     position: 'top',
+                //     font: {
+                //         size: 30
+                //     }
+                // },
+                legend: {
+                    display: false,
+                }
+              },
+              scales: {
+                r: {
+                    max: 100,
+                    ticks:{
+                        stepSize: 10
+                    }
+                }
+            }
+            },
+          };
+         
+          
+          const pokemonStatChart = new Chart(
+            document.querySelector("#statsChart"),
+            config
+          );
+        
+
+
+    
        
     })
 
-   
- 
+
 }
+
+
+
+
+
+
 
 
 
