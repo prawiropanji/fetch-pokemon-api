@@ -1,3 +1,21 @@
+html{
+    --color-water : rgb(54,175,246);
+    --color-fire : rgb(246,126,13);
+    --color-poison: rgb(168,25,215);
+    --color-normal: rgb(204,201,170);
+    --color-fighting: rgb(232,18,26);
+    --color-flying: rgb(94,185,180);
+    --color-ground: rgb(226,209,91);
+    --color-rock: rgb(120,107,63);
+    --color-bug: rgb(189,221,110);
+    --color-ghost: rgb(143,84,164);
+    --color-steel: rgb(123,142,138);
+    --color-grass: rgb(63,150,9);
+    
+    
+}
+
+
 p {
  
     margin-bottom: 0;
@@ -11,10 +29,10 @@ img{
     object-fit: contain;
     
 }
-
+/* 
 .card {
-    width: 100%;
-}
+    width: 75%;
+} */
 
 
 
