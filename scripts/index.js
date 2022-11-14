@@ -36,7 +36,7 @@
 // console.log(animals);
 // console.log(OnlyDog);
 
-import {showPokemonDetail} from "./pokemonDetail.js"
+// import {showPokemonDetail} from "./pokemonDetail.js"
  
 $.ajax({
     url: "https://pokeapi.co/api/v2/pokemon"
@@ -59,7 +59,10 @@ $.ajax({
   
     for (const button of showPokemonBtns) {
         button.addEventListener('click', (event) => {
-            showPokemonDetail(event.target.dataset.detailUrl)
+            import('./pokemonDetail.js').then((module) => {
+                module.showPokemonDetail(event.target.dataset.detailUrl)
+            })
+            // showPokemonDetail(event.target.dataset.detailUrl)
         })
     }
 
